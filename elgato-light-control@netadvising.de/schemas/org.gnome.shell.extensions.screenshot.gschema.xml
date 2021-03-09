@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="elgato-light-control">
+  <schema path="/org/gnome/shell/extensions/elgato-light-control/" id="org.gnome.shell.extensions.elgato-light-control">
+    <key name="elgato-devices" type="s">
+        <default>"[]"</default>
+        <summary>Scanned Elgato devices list</summary>
+        <description>A list of Elgato devices</description>
+    </key>
+  </schema>
+</schemalist>

@@ -1,0 +1,13 @@
+{
+  "name": "Elgato light control",
+  "description": "Control for Elgato key light.",
+  "uuid": "elgato-light-control@netadvising.de",
+  "gettext-domain": "elgato-light-control",
+  "settings-schema": "org.gnome.shell.extensions.elgato-light-control",
+  "git-version": "v1",
+  "shell-version": [
+    "3.38"
+  ],
+  "url": "https://git.netadvising.de/alex/gnome-shell-extension-elgato-key-light-control",
+  "version": 1
+}

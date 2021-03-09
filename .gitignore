@@ -1,0 +1,5 @@
+elgato-light-control@netadvising.de.zip
+*.mo
+gschemas.compiled
+node_modules/
+package-lock.json

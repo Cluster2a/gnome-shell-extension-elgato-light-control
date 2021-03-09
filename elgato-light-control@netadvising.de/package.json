@@ -1,0 +1,16 @@
+{
+  "name": "elgato-light-control",
+  "description": "Allows you to control your Elgato devices over local network.",
+  "author": "netAdvising",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "mdns-js": "^1.0.3"
+  },
+  "keywords": [
+    "gnome-shell-extension",
+    "elgato",
+    "light",
+    "control"
+  ],
+  "homepage": "https://git.netadvising.de/alex/gnome-shell-extension-elgato-light-control"
+}
