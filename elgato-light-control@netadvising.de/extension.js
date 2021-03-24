@@ -67,17 +67,17 @@ const ElgatoKeyLightButton = GObject.registerClass(
       super._init(0.0, _("ElgatoKeyLight"));
 
       this._settings = getSettings();
-
+      
       let box = new St.BoxLayout({ style_class: "panel-status-menu-box" });
+
+      let iconPath = `${Local.path}/icons/brightness-display-symbolic.svg`;
+      let gicon = Gio.icon_new_for_string(`${iconPath}`);
       box.add_child(
-        new St.Icon({
-          icon_name: "brightness-display-symbolic",
-          style_class: "system-status-icon",
-        })
+        new St.Icon({ gicon: gicon, style_class: 'system-status-icon'})
       );
       box.add_child(PopupMenu.arrowIcon(St.Side.BOTTOM));
       this.add_child(box);
-
+      
       this._switchSubmenuitem = [];
       this._temperatureSlider = [];
       this._switchmenuitem = [];
@@ -213,8 +213,10 @@ const ElgatoKeyLightButton = GObject.registerClass(
     _createSingleBrightnessSlider(i) {
       this._brightnessSlider[i] = new Slider.Slider(0);
       this._brightnessSlider[i].accessible_name = _("Brightness");
+      let iconPath = `${Local.path}/icons/night-light-symbolic.svg`;
+      let gicon = Gio.icon_new_for_string(`${iconPath}`); 
       let brightnessSlider_icon = new St.Icon({
-        icon_name: "night-light-symbolic",
+        gicon: gicon,
         style_class: "popup-menu-icon",
       });
       let item = new PopupMenu.PopupBaseMenuItem({ activate: false });
@@ -240,8 +242,10 @@ const ElgatoKeyLightButton = GObject.registerClass(
       // Create the temperature slider
       this._temperatureSlider[i] = new Slider.Slider(0);
       this._temperatureSlider[i].accessible_name = _("Temperature");
+      let iconPath = `${Local.path}/icons/display-brightness-symbolic.svg`;
+      let gicon = Gio.icon_new_for_string(`${iconPath}`); 
       let temperatureSlider_icon = new St.Icon({
-        icon_name: "display-brightness-symbolic",
+        gicon: gicon,
         style_class: "popup-menu-icon",
       });
       let item = new PopupMenu.PopupBaseMenuItem({ activate: false });
