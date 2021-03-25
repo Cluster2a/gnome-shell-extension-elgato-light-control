@@ -1,4 +1,4 @@
-# Gnome Shell Extension Elgato light control
+# Gnome Shell Extension Elgato light control for Linux
 [![License](https://img.shields.io/badge/licence-GPL--2.0-orange?logo=appveyor&style=for-the-badge)](https://git.netadvising.de/alex/gnome-shell-extension-elgato-light-control/src/branch/master/COPYING)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue?logo=appveyor&style=for-the-badge)](https://www.paypal.com/donate?hosted_button_id=WX4VWRKS89666)
 
