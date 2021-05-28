@@ -22,8 +22,6 @@ This extension is only tested with gnome-shell 3.38 right now:
 - [x] Cleanup and reorganise code base.
 - [x] Improve design and texts.
 - [ ] Adding multiple languages (english / german).
-- [ ] Device limitation to 5.
-- [ ] Enable device finder (flashing).
 - [x] Auto discovery for Elgato devices.
 
 ## Requirements
