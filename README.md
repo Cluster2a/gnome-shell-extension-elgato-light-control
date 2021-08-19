@@ -57,7 +57,7 @@ sudo pacman -S npm nodejs
 Not available right now.
 
 ## Download & Installation
-    git clone https://git.netadvising.de/alex/gnome-shell-extension-elgato-light-control && cd gnome-shell-extension-elgato-light-control
+    git clone https://github.com/Cluster2a/gnome-shell-extension-elgato-light-control.git && cd gnome-shell-extension-elgato-light-control
     glib-compile-schemas --strict --targetdir=elgato-light-control@netadvising.de/schemas/ elgato-light-control@netadvising.de/schemas
     cp -r elgato-light-control@netadvising.de ~/.local/share/gnome-shell/extensions
 
