@@ -8,9 +8,9 @@ This extension is only tested with gnome-shell 3.38 right now:
 
     * master: 3.38
 
-![Screenshot](https://git.netadvising.de/alex/gnome-shell-extension-elgato-light-control/raw/branch/master/screenshot.png)
+![Screenshot](https://github.com/Cluster2a/gnome-shell-extension-elgato-light-control/raw/master/screenshot.png)
 
-![Preferences](https://git.netadvising.de/alex/gnome-shell-extension-elgato-light-control/raw/branch/master/screenshot-prefs.png)
+![Preferences](https://github.com/Cluster2a/gnome-shell-extension-elgato-light-control/raw/master/screenshot-prefs.png)
 
 ## Features
 - [x] Use multiple Elgato devices.
