@@ -6,7 +6,8 @@
   "settings-schema": "org.gnome.shell.extensions.elgato-light-control",
   "git-version": "v1",
   "shell-version": [
-    "3.38"
+    "3.38",
+    "40.5"
   ],
   "url": "https://git.netadvising.de/alex/gnome-shell-extension-elgato-key-light-control",
   "version": 1

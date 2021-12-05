@@ -4,9 +4,9 @@
 
 Control all your Elgato Key Lights with one Control.
 
-This extension is only tested with gnome-shell 3.38 right now:
+This extension is only tested with gnome-shell **3.38** and **40.5** right now:
 
-    * master: 3.38
+    * master: 3.38, 40.5
 
 ![Screenshot](https://github.com/Cluster2a/gnome-shell-extension-elgato-light-control/raw/master/screenshot.png)
 
