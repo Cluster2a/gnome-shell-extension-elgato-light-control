@@ -1,0 +1,37 @@
+name: Release
+
+# Build the extension and publish a GitHub Release whenever a version tag is
+# pushed (e.g. `git tag v2.0.1 && git push origin v2.0.1`).
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+env:
+  UUID: elgato-light-control@cluster2a.github.io
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: sudo apt-get update && sudo apt-get install -y libglib2.0-bin zip
+
+      - name: Pack the extension
+        run: |
+          glib-compile-schemas "$UUID/schemas/"
+          (cd "$UUID" && zip -r "../$UUID.shell-extension.zip" .)
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            "$UUID.shell-extension.zip" \
+            --title "Elgato Light Control ${GITHUB_REF_NAME#v}" \
+            --generate-notes
