@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="elgato-light-control">
+  <schema id="org.gnome.shell.extensions.elgato-light-control"
+          path="/org/gnome/shell/extensions/elgato-light-control/">
+    <key name="manual-lights" type="as">
+      <default>[]</default>
+      <summary>Manually added lights</summary>
+      <description>Lights that cannot be auto-discovered, each as an "ip:port" string.</description>
+    </key>
+  </schema>
+</schemalist>
