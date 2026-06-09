@@ -351,6 +351,7 @@ export const ElgatoLightBrowser = GObject.registerClass({
             this._browserProxy.disconnectSignal(this._itemRemoveId);
             this._browserProxy = null;
         }
+        this._serverProxy = null;
         this._removeRelookupTimeout();
         if (this._changedTimeout !== null) {
             GLib.source_remove(this._changedTimeout);

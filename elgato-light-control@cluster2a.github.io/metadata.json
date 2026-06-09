@@ -6,5 +6,8 @@
   "settings-schema": "org.gnome.shell.extensions.elgato-light-control",
   "gettext-domain": "elgato-light-control",
   "url": "https://github.com/Cluster2a/gnome-shell-extension-elgato-light-control",
+  "donations": {
+    "custom": ["https://www.paypal.com/donate?hosted_button_id=WX4VWRKS89666"]
+  },
   "version-name": "2.0.0"
 }
