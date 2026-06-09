@@ -14,11 +14,9 @@ Lights are discovered automatically on your local network over mDNS (via the Ava
 
 ## Screenshots
 
-<p align="center">
-  <img src="screenshot-panel.png" alt="Panel menu with power toggle, brightness and colour-temperature sliders" width="420">
-  <br><br>
-  <img src="screenshot-prefs.png" alt="Preferences window for adding lights manually by IP address" width="420">
-</p>
+| Panel menu | Preferences |
+| --- | --- |
+| ![Panel menu with power toggle, brightness and colour-temperature sliders](screenshot-panel.png) | ![Preferences window for adding lights manually by IP address](screenshot-prefs.png) |
 
 ## Features
 
@@ -35,6 +33,8 @@ Lights are discovered automatically on your local network over mDNS (via the Ava
 
 ## Installation
 
+Not yet on [extensions.gnome.org](https://extensions.gnome.org/) — install from source for now.
+
 ### From source
 
 ```sh
@@ -45,7 +45,16 @@ gnome-extensions pack elgato-light-control@cluster2a.github.io \
 gnome-extensions install --force elgato-light-control@cluster2a.github.io.shell-extension.zip
 ```
 
-Log out and back in, then enable it:
+Then load the extension:
+
+- **Wayland:** log out and back in (the shell can't hot-reload extensions). To test without
+  logging out, run a nested session:
+  ```sh
+  dbus-run-session -- gnome-shell --nested --wayland
+  ```
+- **X11:** press `Alt`+`F2`, type `r`, press `Enter`.
+
+Finally enable it:
 
 ```sh
 gnome-extensions enable elgato-light-control@cluster2a.github.io
