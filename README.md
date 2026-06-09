@@ -6,7 +6,7 @@
 ![GNOME Shell](https://img.shields.io/badge/GNOME%20Shell-45–50-4A86CF?logo=gnome&logoColor=white&style=for-the-badge)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-blue?style=for-the-badge)](LICENSE)
 ![GJS](https://img.shields.io/badge/GJS-ESM-f5c211?style=for-the-badge)
-[![Donate](https://img.shields.io/badge/Donate-PayPal-blue?logo=appveyor&style=for-the-badge)](https://www.paypal.com/donate?hosted_button_id=WX4VWRKS89666)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal&logoColor=white&style=for-the-badge)](https://www.paypal.com/donate?hosted_button_id=WX4VWRKS89666)
 
 A GNOME Shell extension to control your [Elgato Key Lights](https://www.elgato.com/) from the top panel: power, brightness and colour temperature.
 
