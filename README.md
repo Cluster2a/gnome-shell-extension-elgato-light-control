@@ -12,6 +12,14 @@ A GNOME Shell extension to control your [Elgato Key Lights](https://www.elgato.c
 
 Lights are discovered automatically on your local network over mDNS (via the Avahi daemon that ships with most Linux distributions). Plug a light in and it appears in the menu; change its IP and the extension follows.
 
+## Screenshots
+
+<p align="center">
+  <img src="screenshot-panel.png" alt="Panel menu with power toggle, brightness and colour-temperature sliders" width="420">
+  <br><br>
+  <img src="screenshot-prefs.png" alt="Preferences window for adding lights manually by IP address" width="420">
+</p>
+
 ## Features
 
 - Automatic discovery of Key Lights over the network (IPv4 and IPv6).
