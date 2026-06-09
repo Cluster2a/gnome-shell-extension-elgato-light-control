@@ -1,7 +1,7 @@
 {
   "uuid": "elgato-light-control@cluster2a.github.io",
   "name": "Elgato Light Control",
-  "description": "Discover and control Elgato Key Lights on your local network: power, brightness and colour temperature.",
+  "description": "Discover and control Elgato Key Lights on your local network: power, brightness and colour temperature.\n\nThis extension is not affiliated, funded, or in any way associated with Elgato.",
   "shell-version": ["45", "46", "47", "48", "49", "50"],
   "settings-schema": "org.gnome.shell.extensions.elgato-light-control",
   "gettext-domain": "elgato-light-control",

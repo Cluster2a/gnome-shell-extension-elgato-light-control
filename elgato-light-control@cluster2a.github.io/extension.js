@@ -41,22 +41,24 @@ class ElgatoIndicator extends PanelMenu.Button {
         }));
 
         this._browser = new ElgatoLightBrowser();
-        this._changedId = this._browser.connect('changed', () => {
-            this._discovered = true;
-            this._buildMenu();
-        });
-        this._avahiMissingId = this._browser.connect('avahi-missing', () => {
-            this._avahiMissing = true;
-            this._buildMenu();
-        });
+        this._browser.connectObject(
+            'changed', () => {
+                this._discovered = true;
+                this._buildMenu();
+            },
+            'avahi-missing', () => {
+                this._avahiMissing = true;
+                this._buildMenu();
+            },
+            this);
 
-        this._settingsChangedId = this._settings.connect('changed::manual-lights',
-            () => this._buildMenu());
+        this._settings.connectObject('changed::manual-lights',
+            () => this._buildMenu(), this);
 
-        this._menuStateId = this.menu.connect('open-state-changed', (menu, open) => {
+        this.menu.connectObject('open-state-changed', (menu, open) => {
             if (open)
                 this._refresh();
-        });
+        }, this);
 
         this._buildMenu();
     }
@@ -124,19 +126,21 @@ class ElgatoIndicator extends PanelMenu.Button {
 
     _addLightControls(menu, light) {
         const keyLight = new KeyLight(light.address, light.port);
-        const control = {keyLight, signals: []};
+        const control = {keyLight};
 
+        // Track these with connectObject(this); _releaseControls() drops them per
+        // control object on every menu rebuild and on teardown.
         control.power = new PopupMenu.PopupSwitchMenuItem(_('Power'), false);
-        control.signals.push([control.power, control.power.connect('toggled', (item, state) =>
-            this._write(`${light.address}:on`, () => keyLight.setState({on: state ? 1 : 0})))]);
+        control.power.connectObject('toggled', (item, state) =>
+            this._write(`${light.address}:on`, () => keyLight.setState({on: state ? 1 : 0})), this);
         menu.addMenuItem(control.power);
 
-        control.brightness = this._addSlider(menu, control.signals,
+        control.brightness = this._addSlider(menu,
             'display-brightness-symbolic', _('Brightness'), value =>
                 this._write(`${light.address}:bri`,
                     () => keyLight.setState({brightness: Math.round(value * 100)})));
 
-        control.temperature = this._addSlider(menu, control.signals,
+        control.temperature = this._addSlider(menu,
             'weather-clear-symbolic', _('Temperature'), value =>
                 this._write(`${light.address}:temp`, () => keyLight.setState({
                     temperature: Math.round(MIRED_MIN + value * (MIRED_MAX - MIRED_MIN)),
@@ -145,17 +149,17 @@ class ElgatoIndicator extends PanelMenu.Button {
         this._controls.push(control);
     }
 
-    _addSlider(menu, signals, iconName, accessibleName, onChange) {
+    _addSlider(menu, iconName, accessibleName, onChange) {
         const item = new PopupMenu.PopupBaseMenuItem({activate: false});
         item.add_child(new St.Icon({icon_name: iconName, style_class: 'popup-menu-icon'}));
 
         const slider = new Slider.Slider(0);
         slider.x_expand = true;
         slider.accessible_name = accessibleName;
-        signals.push([slider, slider.connect('notify::value', () => {
+        slider.connectObject('notify::value', () => {
             if (!this._syncing)
                 onChange(slider.value);
-        })]);
+        }, this);
         item.add_child(slider);
         menu.addMenuItem(item);
 
@@ -195,8 +199,9 @@ class ElgatoIndicator extends PanelMenu.Button {
         this._pending.clear();
 
         for (const control of this._controls) {
-            for (const [object, id] of control.signals)
-                object.disconnect(id);
+            control.power.disconnectObject(this);
+            control.brightness.disconnectObject(this);
+            control.temperature.disconnectObject(this);
             control.keyLight.destroy();
         }
         this._controls = [];
@@ -204,11 +209,10 @@ class ElgatoIndicator extends PanelMenu.Button {
 
     destroy() {
         this._releaseControls();
-        this.menu.disconnect(this._menuStateId);
-        this._browser.disconnect(this._changedId);
-        this._browser.disconnect(this._avahiMissingId);
+        this.menu.disconnectObject(this);
+        this._browser.disconnectObject(this);
         this._browser.shutdown();
-        this._settings.disconnect(this._settingsChangedId);
+        this._settings.disconnectObject(this);
         super.destroy();
     }
 });

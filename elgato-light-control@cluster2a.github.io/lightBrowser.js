@@ -83,9 +83,6 @@ const AVAHI_PROTO_INET6 = 1;
 const AVAHI_IF_UNSPEC = -1;
 const AVAHI_PROTO_UNSPEC = -1;
 
-const AvahiServerProxy = Gio.DBusProxy.makeProxyWrapper(AvahiServerIface);
-const AvahiServiceBrowserProxy = Gio.DBusProxy.makeProxyWrapper(AvahiServiceBrowserIface);
-
 const decoder = new TextDecoder();
 
 // Resolution state of a browsed service entry.
@@ -157,6 +154,9 @@ export const ElgatoLightBrowser = GObject.registerClass({
         'avahi-missing': {},
     },
 }, class ElgatoLightBrowser extends GObject.Object {
+    static _ServerProxy = Gio.DBusProxy.makeProxyWrapper(AvahiServerIface);
+    static _ServiceBrowserProxy = Gio.DBusProxy.makeProxyWrapper(AvahiServiceBrowserIface);
+
     _init() {
         super._init();
 
@@ -166,7 +166,8 @@ export const ElgatoLightBrowser = GObject.registerClass({
         this._relookupTimeout = null;
         this._browserProxy = null;
 
-        this._serverProxy = new AvahiServerProxy(Gio.DBus.system, 'org.freedesktop.Avahi', '/');
+        this._serverProxy = new ElgatoLightBrowser._ServerProxy(
+            Gio.DBus.system, 'org.freedesktop.Avahi', '/');
         this._serverProxy.ServiceBrowserNewRemote(
             AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, '_elg._tcp', '', 0,
             (result, error) => {
@@ -179,7 +180,7 @@ export const ElgatoLightBrowser = GObject.registerClass({
                 }
 
                 const [path] = result;
-                this._browserProxy = new AvahiServiceBrowserProxy(
+                this._browserProxy = new ElgatoLightBrowser._ServiceBrowserProxy(
                     Gio.DBus.system, 'org.freedesktop.Avahi', path);
                 this._itemNewId = this._browserProxy.connectSignal('ItemNew',
                     (proxy, sender, [iface, protocol, name, type, domain]) =>
