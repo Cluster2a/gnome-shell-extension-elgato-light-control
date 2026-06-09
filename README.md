@@ -1,71 +1,72 @@
-# Gnome Shell Extension Elgato light control for Linux
-[![License](https://img.shields.io/badge/licence-GPL--2.0-orange?logo=appveyor&style=for-the-badge)](https://git.netadvising.de/alex/gnome-shell-extension-elgato-light-control/src/branch/master/COPYING)
+# Elgato Light Control
+
+<!-- Published to extensions.gnome.org? Uncomment and set the extension id:
+[![Get it on extensions.gnome.org](https://img.shields.io/badge/extensions.gnome.org-Elgato%20Light%20Control-4A86CF?logo=gnome&logoColor=white&style=for-the-badge)](https://extensions.gnome.org/extension/ID/elgato-light-control/)
+-->
+![GNOME Shell](https://img.shields.io/badge/GNOME%20Shell-45–50-4A86CF?logo=gnome&logoColor=white&style=for-the-badge)
+[![License](https://img.shields.io/badge/License-GPL--2.0--or--later-blue?style=for-the-badge)](LICENSE)
+![GJS](https://img.shields.io/badge/GJS-ESM-f5c211?style=for-the-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue?logo=appveyor&style=for-the-badge)](https://www.paypal.com/donate?hosted_button_id=WX4VWRKS89666)
 
-Control all your Elgato Key Lights with one Control.
+A GNOME Shell extension to control your [Elgato Key Lights](https://www.elgato.com/) from the top panel: power, brightness and colour temperature.
 
-This extension is only tested with gnome-shell **3.38** and **40.5** right now:
-
-    * master: 3.38, 40.5
-
-![Screenshot](https://github.com/Cluster2a/gnome-shell-extension-elgato-light-control/raw/master/screenshot.png)
-
-![Preferences](https://github.com/Cluster2a/gnome-shell-extension-elgato-light-control/raw/master/screenshot-prefs.png)
+Lights are discovered automatically on your local network over mDNS (via the Avahi daemon that ships with most Linux distributions). Plug a light in and it appears in the menu; change its IP and the extension follows.
 
 ## Features
-- [x] Use multiple Elgato devices.
-- [x] Turn on/off light.
-- [x] Adjust brightness.
-- [x] Adjust light temperature.
 
-## TODO
-- [x] Cleanup and reorganise code base.
-- [x] Improve design and texts.
-- [ ] Adding multiple languages (english / german).
-- [x] Auto discovery for Elgato devices.
+- Automatic discovery of Key Lights over the network (IPv4 and IPv6).
+- Turn lights on and off.
+- Adjust brightness and colour temperature.
+- Controls every light found; multiple lights get their own submenu.
+- Optional manual entry by IP address for networks that block mDNS.
 
 ## Requirements
-Here is a list of required programs that Elgato light control depends on:
-* [npm](https://www.npmjs.com/get-npm) (for dependencies installation)
-* [nodejs](https://nodejs.org) (v8.6 or newer)
 
-Please make sure you have all of the above installed.
+- GNOME Shell 45–50.
+- A running `avahi-daemon` (standard on most distributions; `systemctl status avahi-daemon`).
 
-## Preparation
-### Ubuntu
-Having enabled universe repo run:
-```
-sudo apt install npm
-```
-Update npm:
-```
-sudo npm install -g npm
-```
+## Installation
 
-### Fedora
-Having enabled rpm fusion repos run:
-```
-sudo dnf install npm
+### From source
+
+```sh
+git clone https://github.com/Cluster2a/gnome-shell-extension-elgato-light-control.git
+cd gnome-shell-extension-elgato-light-control
+gnome-extensions pack elgato-light-control@cluster2a.github.io \
+    --extra-source=lightBrowser.js --extra-source=keyLight.js --extra-source=icons --force
+gnome-extensions install --force elgato-light-control@cluster2a.github.io.shell-extension.zip
 ```
 
-### Arch
+Log out and back in, then enable it:
+
+```sh
+gnome-extensions enable elgato-light-control@cluster2a.github.io
 ```
-sudo pacman -S npm nodejs
-```
 
-## Download & Installation from e.g.o
-Not available right now.
+## Usage
 
-## Download & Installation
-    git clone https://github.com/Cluster2a/gnome-shell-extension-elgato-light-control.git && cd gnome-shell-extension-elgato-light-control
-    glib-compile-schemas --strict --targetdir=elgato-light-control@netadvising.de/schemas/ elgato-light-control@netadvising.de/schemas
-    cp -r elgato-light-control@netadvising.de ~/.local/share/gnome-shell/extensions
+Click the light icon in the panel. Discovered lights appear automatically; open the menu to toggle power and drag the brightness and temperature sliders. The current state is read from each light every time the menu is opened.
 
-Restart the shell and then enable the extension.
+If a light cannot be discovered (for example on a network that blocks mDNS), open **Settings** and add it by IP address (`ip` or `ip:port`, default port `9123`).
 
-## Install npm dependencies
-**Before scanning for devices** you **must** install some additional npm packages.
+## Compatibility
 
-Go to `Settings -> Installation` and click `Install npm modules` button.
+| GNOME Shell | Status |
+| --- | --- |
+| 50 | ✅ Tested |
+| 45 – 49 | Expected to work (same ESM API; not actively tested) |
+| ≤ 44 | ❌ Unsupported (pre-ESM extension API) |
 
-You must have `npm` and `nodejs` installed prior to this step.
+## Contributing
+
+Issues and pull requests are welcome. Please keep the GTK/Adwaita code in `prefs.js` and the
+shell-side code in `extension.js` separate, and make sure the extension cleans up fully in
+`disable()`.
+
+## Credits
+
+Network discovery is based on the Avahi/D-Bus approach contributed by Owen Taylor in [issue #2](https://github.com/Cluster2a/gnome-shell-extension-elgato-light-control/issues/2), used here under the MIT license.
+
+## License
+
+GPL-2.0-or-later. See [LICENSE](LICENSE).
