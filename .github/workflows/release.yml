@@ -20,12 +20,15 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Install build tools
-        run: sudo apt-get update && sudo apt-get install -y libglib2.0-bin zip
+        run: sudo apt-get update && sudo apt-get install -y zip
 
       - name: Pack the extension
         run: |
-          glib-compile-schemas "$UUID/schemas/"
-          (cd "$UUID" && zip -r "../$UUID.shell-extension.zip" .)
+          # Ship only the schema source — extensions.gnome.org compiles
+          # schemas itself for GNOME 45+, and bundling gschemas.compiled
+          # trips the EGO-P-006 review check.
+          (cd "$UUID" && zip -r "../$UUID.shell-extension.zip" . \
+            -x 'schemas/gschemas.compiled')
 
       - name: Publish release
         env:
