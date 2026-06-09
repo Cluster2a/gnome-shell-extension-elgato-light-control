@@ -1,8 +1,6 @@
 # Elgato Light Control
 
-<!-- Published to extensions.gnome.org? Uncomment and set the extension id:
-[![Get it on extensions.gnome.org](https://img.shields.io/badge/extensions.gnome.org-Elgato%20Light%20Control-4A86CF?logo=gnome&logoColor=white&style=for-the-badge)](https://extensions.gnome.org/extension/ID/elgato-light-control/)
--->
+[![Get it on extensions.gnome.org](https://img.shields.io/badge/extensions.gnome.org-Elgato%20Light%20Control-4A86CF?logo=gnome&logoColor=white&style=for-the-badge)](https://extensions.gnome.org/extension/10118/elgato-light-control/)
 ![GNOME Shell](https://img.shields.io/badge/GNOME%20Shell-45–50-4A86CF?logo=gnome&logoColor=white&style=for-the-badge)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-blue?style=for-the-badge)](LICENSE)
 ![GJS](https://img.shields.io/badge/GJS-ESM-f5c211?style=for-the-badge)
@@ -33,7 +31,13 @@ Lights are discovered automatically on your local network over mDNS (via the Ava
 
 ## Installation
 
-Not yet on [extensions.gnome.org](https://extensions.gnome.org/) — install from source for now.
+### From extensions.gnome.org (recommended)
+
+Install it in one click from the extension page:
+
+**[extensions.gnome.org/extension/10118/elgato-light-control](https://extensions.gnome.org/extension/10118/elgato-light-control/)**
+
+This needs the [browser integration](https://wiki.gnome.org/Projects/GnomeShellIntegration) (the browser add-on plus `gnome-browser-connector`). Alternatively, install the [Extension Manager](https://flathub.org/apps/com.mattjakeman.ExtensionManager) app and search for "Elgato Light Control".
 
 ### From source
 
@@ -47,11 +51,7 @@ gnome-extensions install --force elgato-light-control@cluster2a.github.io.shell-
 
 Then load the extension:
 
-- **Wayland:** log out and back in (the shell can't hot-reload extensions). To test without
-  logging out, run a nested session:
-  ```sh
-  dbus-run-session -- gnome-shell --nested --wayland
-  ```
+- **Wayland:** log out and back in (the shell can't hot-reload extensions).
 - **X11:** press `Alt`+`F2`, type `r`, press `Enter`.
 
 Finally enable it:
