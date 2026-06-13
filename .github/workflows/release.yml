@@ -18,6 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          # Need the full annotated tag object so its message can be used as
+          # the release notes body below.
+          fetch-depth: 0
 
       - name: Install build tools
         run: sudo apt-get update && sudo apt-get install -y zip
@@ -34,7 +38,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # The annotated tag message is the human-written changelog; GitHub
+          # appends its own "What's Changed" / Full Changelog list underneath.
           gh release create "$GITHUB_REF_NAME" \
             "$UUID.shell-extension.zip" \
             --title "Elgato Light Control ${GITHUB_REF_NAME#v}" \
+            --notes "$(git for-each-ref "refs/tags/$GITHUB_REF_NAME" --format='%(contents:body)')" \
             --generate-notes

@@ -2,10 +2,27 @@
 <schemalist gettext-domain="elgato-light-control">
   <schema id="org.gnome.shell.extensions.elgato-light-control"
           path="/org/gnome/shell/extensions/elgato-light-control/">
-    <key name="manual-lights" type="as">
+    <key name="rediscover-trigger" type="i">
+      <default>0</default>
+      <summary>Rediscover request</summary>
+      <description>Bumped by the preferences window to ask the running extension to
+        restart network discovery. The value carries no meaning; only the change
+        notification matters (the shell and preferences run in separate
+        processes, so this acts as a one-way signal).</description>
+    </key>
+    <key name="discovered-lights" type="as">
       <default>[]</default>
-      <summary>Manually added lights</summary>
-      <description>Lights that cannot be auto-discovered, each as an "ip:port" string.</description>
+      <summary>Last seen lights</summary>
+      <description>Lights the running extension has discovered, each as an
+        "address|port|model" string (pipe-separated because IPv6 addresses
+        contain colons). Published by the shell so the preferences window (a
+        separate process that does not browse the network itself) can offer to
+        rename or identify them.</description>
+    </key>
+    <key name="toggle-shortcut" type="as">
+      <default>[]</default>
+      <summary>Toggle all lights shortcut</summary>
+      <description>Keyboard shortcut that turns every known light on or off.</description>
     </key>
   </schema>
 </schemalist>

@@ -83,8 +83,6 @@ const AVAHI_PROTO_INET6 = 1;
 const AVAHI_IF_UNSPEC = -1;
 const AVAHI_PROTO_UNSPEC = -1;
 
-const decoder = new TextDecoder();
-
 // Resolution state of a browsed service entry.
 const LOOKUP = 0;
 const RESOLVED = 1;
@@ -156,6 +154,7 @@ export const ElgatoLightBrowser = GObject.registerClass({
 }, class ElgatoLightBrowser extends GObject.Object {
     static _ServerProxy = Gio.DBusProxy.makeProxyWrapper(AvahiServerIface);
     static _ServiceBrowserProxy = Gio.DBusProxy.makeProxyWrapper(AvahiServiceBrowserIface);
+    static _decoder = new TextDecoder();
 
     _init() {
         super._init();
@@ -168,6 +167,12 @@ export const ElgatoLightBrowser = GObject.registerClass({
 
         this._serverProxy = new ElgatoLightBrowser._ServerProxy(
             Gio.DBus.system, 'org.freedesktop.Avahi', '/');
+        this._startBrowser();
+    }
+
+    // Open a fresh Avahi service browser. Avahi replays its cached entries as
+    // ItemNew signals, so this re-resolves every currently-advertised light.
+    _startBrowser() {
         this._serverProxy.ServiceBrowserNewRemote(
             AVAHI_IF_UNSPEC, AVAHI_PROTO_UNSPEC, '_elg._tcp', '', 0,
             (result, error) => {
@@ -229,7 +234,7 @@ export const ElgatoLightBrowser = GObject.registerClass({
 
                 let friendlyName = null;
                 for (const item of txt) {
-                    const [key, value] = decoder.decode(item).split('=');
+                    const [key, value] = ElgatoLightBrowser._decoder.decode(item).split('=');
                     if (key === 'md')
                         friendlyName = value;
                 }
@@ -344,19 +349,36 @@ export const ElgatoLightBrowser = GObject.registerClass({
         }
     }
 
-    // Frees the remote Avahi browser and all local sources. Call once on disable.
-    shutdown() {
+    // Forget everything seen so far and browse again from scratch. Lets the
+    // user force an immediate scan (e.g. after powering a light on) rather than
+    // waiting for the periodic re-resolve. Keeps signal connections intact, so
+    // callers see results through the same 'changed' signal as before.
+    restart() {
+        this._teardownBrowser();
+        this._serviceEntries.clear();
+        this.lights = [];
+        this._startBrowser();
+    }
+
+    // Frees the remote Avahi browser and all local timers, leaving the server
+    // proxy in place so the browser can be started again.
+    _teardownBrowser() {
         if (this._browserProxy) {
             this._browserProxy.FreeRemote();
             this._browserProxy.disconnectSignal(this._itemNewId);
             this._browserProxy.disconnectSignal(this._itemRemoveId);
             this._browserProxy = null;
         }
-        this._serverProxy = null;
         this._removeRelookupTimeout();
         if (this._changedTimeout !== null) {
             GLib.source_remove(this._changedTimeout);
             this._changedTimeout = null;
         }
+    }
+
+    // Frees the remote Avahi browser and all local sources. Call once on disable.
+    shutdown() {
+        this._teardownBrowser();
+        this._serverProxy = null;
     }
 });

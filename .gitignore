@@ -1,4 +1,4 @@
 *.shell-extension.zip
 *.mo
-schemas/gschemas.compiled
+gschemas.compiled
 venv/
