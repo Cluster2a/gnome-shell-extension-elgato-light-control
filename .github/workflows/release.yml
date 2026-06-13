@@ -19,9 +19,12 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          # Need the full annotated tag object so its message can be used as
-          # the release notes body below.
           fetch-depth: 0
+
+      # checkout leaves the trigger tag as a lightweight ref pointing at the
+      # commit, so re-fetch it to restore the annotated object we read below.
+      - name: Restore annotated tag
+        run: git fetch --force origin "refs/tags/${GITHUB_REF_NAME}:refs/tags/${GITHUB_REF_NAME}"
 
       - name: Install build tools
         run: sudo apt-get update && sudo apt-get install -y zip
