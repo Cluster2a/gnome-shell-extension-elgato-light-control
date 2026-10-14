@@ -1,7 +1,7 @@
 # Elgato Light Control
 
 [![Get it on extensions.gnome.org](https://img.shields.io/badge/extensions.gnome.org-Elgato%20Light%20Control-4A86CF?logo=gnome&logoColor=white&style=for-the-badge)](https://extensions.gnome.org/extension/10118/elgato-light-control/)
-![GNOME Shell](https://img.shields.io/badge/GNOME%20Shell-45–50-4A86CF?logo=gnome&logoColor=white&style=for-the-badge)
+![GNOME Shell](https://img.shields.io/badge/GNOME%20Shell-45–51-4A86CF?logo=gnome&logoColor=white&style=for-the-badge)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-blue?style=for-the-badge)](LICENSE)
 ![GJS](https://img.shields.io/badge/GJS-ESM-f5c211?style=for-the-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue?logo=paypal&logoColor=white&style=for-the-badge)](https://www.paypal.com/donate?hosted_button_id=WX4VWRKS89666)
@@ -26,7 +26,7 @@ Lights are discovered automatically on your local network over mDNS (via the Ava
 
 ## Requirements
 
-- GNOME Shell 45–50.
+- GNOME Shell 45–51.
 - A running `avahi-daemon` (standard on most distributions; `systemctl status avahi-daemon`).
 
 ## Installation
@@ -70,6 +70,7 @@ If a light cannot be discovered (for example on a network that blocks mDNS), ope
 
 | GNOME Shell | Status |
 | --- | --- |
+| 51 | ✅ Tested |
 | 50 | ✅ Tested |
 | 45 – 49 | Expected to work (same ESM API; not actively tested) |
 | ≤ 44 | ❌ Unsupported (pre-ESM extension API) |
